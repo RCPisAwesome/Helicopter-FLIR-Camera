@@ -10,5 +10,6 @@ https://www.youtube.com/watch?v=kEn9wR23S4k
 # Issues:
 - Performance issue from constantly drawing the boxes on the thermal cam (Unresolvable as far as I can work out)
 - Meter distance doesnt show when locked on (Unresolvable, maybe a restructure could fix this)
+- Boxes don't draw on all entities when theres a lot of them (Unresolvable as far as I can work out, seems to be a game limitation)
 
 # Bugs: None Known

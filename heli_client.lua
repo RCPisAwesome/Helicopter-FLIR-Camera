@@ -429,6 +429,7 @@ Citizen.CreateThread(function()
 			else
 				ThermalToggle = false
 				NightVisionToggle = false
+				SetNightvision(false)
 				SpotlightToggle = false
 				helicam = false
 				StopScreenEffect(ScreenEffectType)

@@ -14,4 +14,4 @@ https://www.youtube.com/watch?v=kEn9wR23S4k
 
 # Bugs:
 
-- Nightvision and the black overlay of the thermal cam don't appear. This might be an issue from other scripts. Restarting the resource fixes it but cause is unknown. Seems to only be a recent bug, FiveM might've just fucked something.
+- Nightvision and the black overlay of the thermal cam don't appear. Restarting the resource fixes it but cause is unknown. This is only be a recent bug, FiveM might've just fucked something up. Will likely need a restructure to fix it.

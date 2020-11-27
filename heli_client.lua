@@ -287,64 +287,6 @@ local Spritefov_min = 0.04
 local Spritezoomspeed = 0.01
 local Spritefov = (Spritefov_max + Spritefov_min) * 0.5
 
-function ThermalAdd()
-    local playerped = GetPlayerPed(-1)
-    local playerCoords = GetEntityCoords(playerped)
-    local handle, ped = FindFirstPed()
-    local success
-    repeat
-		SetTimecycleModifier("NG_blackout")
-		SetTimecycleModifierStrength(0.992)
-        local distance = GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), ped, true)
-        if HasEntityClearLosToEntity(playerped, ped, 17) then
-        	if IsPedHuman(ped) and not IsPedInAnyVehicle(ped,false) then
-        		for _, boneListItem in pairs(boneList) do
-        			local x,y,z = table.unpack(vector3(GetPedBoneCoords(ped,boneListItem.boneId)))
-DrawThermal(x+boneListItem.X1,y+boneListItem.Y1,z+boneListItem.Z1,x+boneListItem.X2,y+boneListItem.Y2,z+boneListItem.Z2)
-        		end
-			else
-				boneList2 = {
---[[SKEL_Spine1 --]] {boneId =  24816, X1 = -0.3, Y1 = -0.3, Z1 = -0.3, X2 = 0.4, Y2 = 0.3, Z2 = 0.7},
-}
-        		for _, boneListItem2 in pairs(boneList2) do
-        			local x,y,z = table.unpack(vector3(GetPedBoneCoords(ped,boneListItem2.boneId)))
-DrawThermal(x+boneListItem2.X1,y+boneListItem2.Y1,z+boneListItem2.Z1,x+boneListItem2.X2,y+boneListItem2.Y2,z+boneListItem2.Z2)
-        		end
-			end
-        	
-        end
-        success, ped = FindNextPed(handle)
-    until not success
-    EndFindPed(handle)
-end
-
-function ThermalAddVehicle()
-	local playerped = GetPlayerPed(-1)
-    local playerCoords = GetEntityCoords(playerped)
-	local handle, pedveh = FindFirstVehicle()
-    local success
-    local rped = nil
-    repeat
-    	local distance = GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), pedveh, true)
-    	if (HasEntityClearLosToEntity(playerped, pedveh, 17)) and (not IsVehicleSeatFree(pedveh, -1)) and (not IsVehicleModel(pedveh, "polmav")) then
-        	for _, vehBoneListItem in ipairs(vehBoneList) do
-        		local getVehBoneIndex = GetEntityBoneIndexByName(pedveh, vehBoneListItem.vehBoneId)
-        		local worldVehBone = GetWorldPositionOfEntityBone(pedveh, getVehBoneIndex)
-        		local x,y,z = table.unpack(vector3(worldVehBone))	
-DrawThermal(x+vehBoneListItem.X1,y+vehBoneListItem.Y1,z+vehBoneListItem.Z1,x+vehBoneListItem.X2,y+vehBoneListItem.Y2,z+vehBoneListItem.Z2)
-    		end
-    	end
-    	success, pedveh = FindNextVehicle(handle)
-    until not success
-    EndFindVehicle(handle)
-    return rped
-end
-
-function DrawThermal(x1,y1,z1,x2,y2,z2)
-    DrawBox(x1,y1,z1,x2,y2,z2,255,255,255,90)
-    --DrawBox(x1,y1,z1,x2,y2,z2,r,g,b,alpha)
-end
-
 function SpotlightAdd(cam)
 	local coords = GetCamCoord(cam)
 	local forward_vector = RotAnglesToVec(GetCamRot(cam, 2))
@@ -395,12 +337,15 @@ Citizen.CreateThread(function()
            	end
        	end
 		if ThermalToggle then
-          	ThermalAdd()
-          	ThermalAddVehicle() 
-        end
-        if NightVisionToggle then
-        	SetNightvision(true)
-        end
+			SetSeethrough(true)
+		elseif not ThermalToggle then
+			SetSeethrough(false)
+		end
+		if NightVisionToggle then
+			SetNightvision(true)
+		elseif not NightVision then
+			SetNightvision(false)
+		end
 	end
 end)
 
@@ -467,8 +412,6 @@ Citizen.CreateThread(function()
 					ThermalToggle = false
 					SpotlightToggle = false
 					NightVisionToggle = not NightVisionToggle
-				else
-					SetNightvision(false)
     			end
     			if IsControlJustPressed(1, Button_Spotlight) then
     				ThermalToggle = false

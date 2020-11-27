@@ -397,10 +397,15 @@ Citizen.CreateThread(function()
 		if ThermalToggle then
           	ThermalAdd()
           	ThermalAddVehicle() 
+		elseif not ThermalToggle then
+			StopScreenEffect(ScreenEffectType)
+			ClearTimecycleModifier()
         end
         if NightVisionToggle then
         	SetNightvision(true)
-        end
+		elseif not NightVisionToggle then
+			SetNightvision(false)
+		end
 	end
 end)
 
@@ -459,16 +464,11 @@ Citizen.CreateThread(function()
 					NightVisionToggle = false
 					SpotlightToggle = false
 					ThermalToggle = not ThermalToggle
-				else
-					StopScreenEffect(ScreenEffectType)
-					ClearTimecycleModifier()
     			end
     			if IsControlJustPressed(1, Button_NightVision) then
 					ThermalToggle = false
 					SpotlightToggle = false
 					NightVisionToggle = not NightVisionToggle
-				else
-					SetNightvision(false)
     			end
     			if IsControlJustPressed(1, Button_Spotlight) then
     				ThermalToggle = false

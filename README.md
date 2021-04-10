@@ -1,3 +1,4 @@
+# DOESN'T WORK PROPERLY ANYMORE SO DON'T USE! I WILL HAVE A NEW VERSION SOON
 # Helicopter FLIR Camera
 Realistic FiveM Helicopter Forward-Looking Infrared Camera heavily based on a real US police heads up display.
 
@@ -13,5 +14,4 @@ https://www.youtube.com/watch?v=kEn9wR23S4k
 - Boxes don't draw on all entities when theres a lot of them (Unresolvable as far as I can work out, seems to be a game limitation)
 
 # Bugs:
-
-- Nightvision and the black overlay of the thermal cam don't appear. Restarting the resource fixes it but cause is unknown. This is only be a recent bug, FiveM might've just fucked something up. Will likely need a restructure to fix it.
+- Nightvision and the black overlay of the thermal cam don't appear. Restarting the resource can fix it but probably best just not to use the resource anymore.
